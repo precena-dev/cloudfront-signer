@@ -204,8 +204,8 @@ module AWS
       def self.generate_custom_policy(resource, options)
         conditions = ["\"DateLessThan\":{\"AWS:EpochTime\":#{epoch_time(options[:expires])}}"]
         conditions << "\"DateGreaterThan\":{\"AWS:EpochTime\":#{epoch_time(options[:starting])}}" if options[:starting]
-        conditions << "\"IpAddress\":{\"AWS:SourceIp\":\"#{options[:ip_range]}\"" if options[:ip_range]
-                %({"Statement":[{"Resource":"#{resource}","Condition":{#{conditions.join(',')}}}}]})
+        conditions << "\"IpAddress\":{\"AWS:SourceIp\":\"#{options[:ip_range]}\"}" if options[:ip_range]
+                %({"Statement":[{"Resource":"#{resource}","Condition":{#{conditions.join(',')}}}]})
       end
 
       def self.epoch_time(timelike)
